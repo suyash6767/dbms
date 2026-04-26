@@ -1,0 +1,279 @@
+﻿EXPERIMENT 10
+Study and implementation of different types of constraints.
+
+
+IMPLEMENTATION OF DIFFERENT TYPES OF CONSTRAINTS:
+
+
+
+
+SQL> create table studinfo12(sid number(5) NOT NULL, name varchar(10));
+
+
+Table created.
+
+
+SQL> desc studinfo12;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ SID                                       NOT NULL NUMBER(5)
+ NAME                                               VARCHAR2(10)
+
+
+SQL> insert into studinfo12 values('&sid', '&name');
+Enter value for sid: 1
+Enter value for name: ak
+old   1: insert into studinfo12 values('&sid', '&name')
+new   1: insert into studinfo12 values('1', 'ak')
+
+
+1 row created.
+
+
+SQL> insert into studinfo12 values('&sid', '&name');
+Enter value for sid: 
+Enter value for name: varsha
+old   1: insert into studinfo12 values('&sid', '&name')
+new   1: insert into studinfo12 values('', 'varsha')
+insert into studinfo12 values('', 'varsha')
+                              *
+ERROR at line 1:
+ORA-01400: cannot insert NULL into ("SYSTEM"."STUDINFO12"."SID") 
+
+
+
+
+SQL> create table studinfo11(sid number(5) UNIQUE, name varchar(10));
+
+
+Table created.
+
+
+SQL> desc studinfo11;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ SID                                                NUMBER(5)
+ NAME                                               VARCHAR2(10)
+
+
+SQL> insert into studinfo11 values('&sid', '&name');
+Enter value for sid: 1
+Enter value for name: ak
+old   1: insert into studinfo11 values('&sid', '&name')
+new   1: insert into studinfo11 values('1', 'ak')
+
+
+1 row created.
+
+
+SQL> insert into studinfo11 values('&sid', '&name');
+Enter value for sid: 1
+Enter value for name: nidhi
+old   1: insert into studinfo11 values('&sid', '&name')
+new   1: insert into studinfo11 values('1', 'nidhi')
+insert into studinfo11 values('1', 'nidhi')
+*
+ERROR at line 1:
+ORA-00001: unique constraint (SYSTEM.SYS_C007005) violated 
+
+
+
+
+SQL> create table studinfo13(sid number(5), name varchar(10), dept varchar(5), CHECK(dept IN('ds', 'it', 'cs')));
+
+
+Table created.
+
+
+SQL> insert into studinfo13 values('&sid', '&name', '&dept');
+Enter value for sid: 1
+Enter value for name: ak
+Enter value for dept: ds
+old   1: insert into studinfo13 values('&sid', '&name', '&dept')
+new   1: insert into studinfo13 values('1', 'ak', 'ds')
+
+
+1 row created.
+
+
+SQL> 2
+SP2-0226: Invalid line number 
+SQL> insert into studinfo13 values('&sid', '&name', '&dept');
+Enter value for sid: 2
+Enter value for name: varsha
+Enter value for dept: aiml
+old   1: insert into studinfo13 values('&sid', '&name', '&dept')
+new   1: insert into studinfo13 values('2', 'varsha', 'aiml')
+insert into studinfo13 values('2', 'varsha', 'aiml')
+*
+ERROR at line 1:
+ORA-02290: check constraint (SYSTEM.SYS_C007006) violated 
+
+
+
+
+SQL> create table faculty(fid number(5) primary key, fname varchar(10));
+
+
+Table created.
+
+
+SQL> desc faculty;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ FID                                       NOT NULL NUMBER(5)
+ FNAME                                              VARCHAR2(10)
+
+
+SQL> create table subject10(subid number(5) primary key, subname varchar(10), fid number(5), foreign key(fid) references faculty);
+
+
+Table created.
+
+
+SQL> desc subject10;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ SUBID                                     NOT NULL NUMBER(5)
+ SUBNAME                                            VARCHAR2(10)
+ FID                                                NUMBER(5)
+
+
+
+
+
+
+
+
+
+
+
+
+AIM
+Study and implementation of different types of constraints in SQL.
+________________
+
+
+RESOURCES REQUIRED
+H/W: P4 Machine
+S/W: Oracle 10g
+________________
+
+
+THEORY (WITH SYNTAX)
+CONSTRAINTS
+Constraints are rules applied to table columns to ensure data accuracy and integrity. If any data violates these rules, the database rejects the operation. Constraints can be applied while creating a table or later using the ALTER TABLE command.
+________________
+
+
+1. NOT NULL
+Ensures that a column cannot store NULL values. It makes the field mandatory.
+Syntax:
+CREATE TABLE table_name (
+  column_name data_type(size) NOT NULL
+);
+Example:
+CREATE TABLE student (
+  sno NUMBER(3) NOT NULL,
+  name CHAR(10)
+);
+________________
+
+
+2. UNIQUE
+Ensures that all values in a column are distinct (no duplicates allowed).
+Syntax:
+CREATE TABLE table_name (
+  column_name data_type(size) UNIQUE
+);
+Example:
+CREATE TABLE student (
+  sno NUMBER(3) UNIQUE,
+  name CHAR(10)
+);
+________________
+
+
+3. CHECK
+Ensures that all values in a column satisfy a specific condition.
+Syntax:
+CREATE TABLE table_name (
+  column_name data_type(size) CHECK (condition)
+);
+Example:
+CREATE TABLE student (
+  sno NUMBER(3),
+  name CHAR(10),
+  class CHAR(5),
+  CHECK (class IN ('CSE','CAD','VLSI'))
+);
+________________
+
+
+4. PRIMARY KEY
+Uniquely identifies each record in a table. It cannot contain NULL values and must be unique.
+Syntax:
+CREATE TABLE table_name (
+  column_name data_type(size) PRIMARY KEY
+);
+Example:
+CREATE TABLE faculty (
+  fcode NUMBER(3) PRIMARY KEY,
+  fname CHAR(10)
+);
+________________
+
+
+5. FOREIGN KEY
+Used to create a relationship between two tables by referencing the primary key of another table.
+Syntax:
+CREATE TABLE table_name (
+  column_name data_type(size),
+  FOREIGN KEY (column_name) REFERENCES parent_table(column_name)
+);
+Example:
+CREATE TABLE subject (
+  scode NUMBER(3) PRIMARY KEY,
+  subname CHAR(10),
+  fcode NUMBER(3),
+  FOREIGN KEY (fcode) REFERENCES faculty(fcode)
+);
+________________
+
+
+6. DEFAULT
+Assigns a default value to a column if no value is provided.
+Syntax:
+CREATE TABLE table_name (
+  column_name data_type(size) DEFAULT value
+);
+Example:
+CREATE TABLE student (
+  sno NUMBER(3) UNIQUE,
+  name CHAR(10),
+  address VARCHAR(20) DEFAULT 'Aurangabad'
+);
+________________
+
+
+ALTER TABLE (Adding Constraints)
+Syntax:
+ALTER TABLE table_name ADD PRIMARY KEY (column_name);
+Example:
+ALTER TABLE student ADD PRIMARY KEY (sno);
+OR
+ALTER TABLE table_name
+ADD CONSTRAINT constraint_name PRIMARY KEY (column_name);
+________________
+
+
+DROP CONSTRAINT
+Syntax:
+ALTER TABLE table_name DROP CONSTRAINT constraint_name;
+Example:
+ALTER TABLE student DROP CONSTRAINT SN;
+________________
+
+
+CONCLUSION
+Thus, we have studied and implemented different types of constraints such as NOT NULL, UNIQUE, CHECK, PRIMARY KEY, FOREIGN KEY, and DEFAULT. These constraints help maintain data integrity and ensure correctness of data in the database.

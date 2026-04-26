@@ -1,0 +1,168 @@
+﻿EXPERIMENT NO 08
+Study and implementation database backup and recovery commands. Study and implementation of rollbook, commit, savepoint.
+
+
+IMPLEMENTATION OF TCL COMMANDS
+
+
+SQL> create table stud_info (Sid number(10), Sname varchar2(10), Address varchar2(20), dept_no number(10));
+Table created.
+SQL> insert into stud_info values (&Sid, '&Sname', '&Address', &dept_no);
+Enter value for Sid: 1
+Enter value for Sname: Hamza
+Enter value for Address: Lyari
+Enter value for dept_no: 45
+old 1: insert into stud_info values (&Sid, '&Sname', '&Address', &dept_no)
+new 1: insert into stud_info values (1, 'Hamza', 'Lyari', 45)
+1 row created.
+SQL> insert into stud_info values (&Sid, '&Sname', '&Address', &dept_no);
+Enter value for Sid: 3
+Enter value for Sname: Aalam
+Enter value for Address: Doodh Soda
+Enter value for dept_no: 18
+old 1: insert into stud_info values (&Sid, '&Sname', '&Address', &dept_no)
+new 1: insert into stud_info values (3, 'Aalam', 'Doodh Soda', 18)
+1 row created.
+SQL> insert into stud_info values (&Sid, '&Sname', '&Address', &dept_no);
+Enter value for Sid: 40
+Enter value for Sname: Rizwan
+Enter value for Address: Pappu
+Enter value for dept_no: 63
+old 1: insert into stud_info values (&Sid, '&Sname', '&Address', &dept_no)
+new 1: insert into stud_info values (40, 'Rizwan', 'Pappu', 63)
+1 row created.
+SQL> select * from stud_info;
+SID SNAME ADDRESS DEPT_NO
+
+
+1 Hamza Lyari 45
+3 Aalam Doodh Soda 18
+40 Rizwan Pappu 63
+SQL> insert into stud_info values (&Sid, '&Sname', '&Address', &dept_no);
+Enter value for Sid: 2
+Enter value for Sname: Jameel
+Enter value for Address: Karachi
+Enter value for dept_no: 7
+old 1: insert into stud_info values (&Sid, '&Sname', '&Address', &dept_no)
+new 1: insert into stud_info values (2, 'Jameel', 'Karachi', 7)
+1 row created.
+SQL> select * from stud_info;
+SID SNAME ADDRESS DEPT_NO
+
+
+1 Hamza Lyari 45
+3 Aalam Doodh Soda 18
+40 Rizwan Pappu 63
+2 Jameel Karachi 7
+SQL> savepoint o1;
+Savepoint created.
+SQL> update stud_info set sid = 20 where dept_no = 7;
+1 row updated.
+SQL> insert into stud_info values (&Sid, '&Sname', '&Address', &dept_no);
+Enter value for Sid: 30
+Enter value for Sname: SP
+Enter value for Address: LTF
+Enter value for dept_no: 93
+old 1: insert into stud_info values (&Sid, '&Sname', '&Address', &dept_no)
+new 1: insert into stud_info values (30, 'SP', 'LTF', 93)
+1 row created.
+SQL> select * from stud_info;
+SID SNAME ADDRESS DEPT_NO
+
+
+1 Hamza Lyari 45
+3 Aalam Doodh Soda 18
+40 Rizwan Pappu 63
+20 Jameel Karachi 7
+30 SP LTF 93
+SQL> delete from stud_info where address = 'LTF';
+1 row deleted.
+SQL> savepoint o2;
+Savepoint created.
+SQL> update stud_info set address = 'Arshad' where sid = 40;
+1 row updated.
+SQL> select * from stud_info;
+SID SNAME ADDRESS DEPT_NO
+
+
+1 Hamza Lyari 45
+3 Aalam Doodh Soda 18
+40 Rizwan Arshad 63
+20 Jameel Karachi 7
+SQL> rollback to o2;
+Rollback complete.
+SQL> select * from stud_info;
+SID SNAME ADDRESS DEPT_NO
+
+
+1 Hamza Lyari 45
+3 Aalam Doodh Soda 18
+40 Rizwan Pappu 63
+20 Jameel Karachi 7
+SQL> rollback to o1;
+Rollback complete.
+SQL> select * from stud_info;
+SID SNAME ADDRESS DEPT_NO
+
+
+1 Hamza Lyari 45
+3 Aalam Doodh Soda 18
+40 Rizwan Pappu 63
+2 Jameel Karachi 7
+SQL> commit;
+Commit complete.
+SQL> spool off;
+
+
+
+
+
+
+
+
+
+
+
+
+ AIM
+To study and implement database backup & recovery commands and transaction control commands such as COMMIT, ROLLBACK, and SAVEPOINT.
+
+
+ RESOURCES REQUIRED
+H/W: P4 Machine
+S/W: Oracle 10g
+
+
+ THEORY (WITH SYNTAX)
+A transaction is a logical unit of work in a database. All operations performed within a transaction are treated as a single unit. Changes made during a transaction become permanent only when they are committed. A transaction begins with an SQL statement and ends with either a COMMIT or ROLLBACK statement.
+Transaction Control Language (TCL) commands are used to manage these transactions effectively.
+
+
+🔸 1. COMMIT
+The COMMIT command is used to permanently save all changes made during a transaction into the database. Once committed, the changes cannot be undone.
+Syntax:
+COMMIT;
+Example:
+COMMIT;
+
+
+🔸 2. SAVEPOINT
+A SAVEPOINT is used to divide a large transaction into smaller parts. It acts as a marker within a transaction so that we can rollback to a specific point instead of the entire transaction.
+Syntax:
+SAVEPOINT savepoint_name;
+Example:
+SAVEPOINT xyz;
+
+
+🔸 3. ROLLBACK
+The ROLLBACK command is used to undo changes made during a transaction. It can either undo the entire transaction or rollback to a specific savepoint.
+Syntax:
+ROLLBACK;
+ROLLBACK TO savepoint_name;
+Example:
+ROLLBACK;
+ROLLBACK TO SAVEPOINT xyz;
+
+
+🔹 CONCLUSION
+Thus, we have studied and implemented transaction control commands such as COMMIT, SAVEPOINT, and ROLLBACK. These commands help in managing database transactions efficiently by ensuring data consistency, allowing partial rollback, and making changes permanent when required.

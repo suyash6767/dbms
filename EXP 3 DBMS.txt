@@ -1,0 +1,311 @@
+﻿DBMS
+EXPERIMENT NO 03
+
+
+
+
+Creating a database using DDL Commands
+
+
+SQL> connect
+Enter user-name: system
+Connected.
+
+
+SQL> create table hospital(h_id number(10), h_name varchar(20), address varchar(30));
+
+
+Table created.
+
+
+SQL> desc hospital;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ H_ID                                               NUMBER(10)
+ H_NAME                                             VARCHAR2(20)
+ ADDRESS                                            VARCHAR2(30)
+
+
+SQL> create table hospital1(h_id number(10) not null, h_name varchar(20), address varchar(30));
+
+
+Table created.
+
+
+SQL> desc hospital1;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ H_ID                                      NOT NULL NUMBER(10)
+ H_NAME                                             VARCHAR2(20)
+ ADDRESS                                            VARCHAR2(30)
+
+
+SQL> create table hospital2(h_id number(10) primary key, h_name varchar(20), address varchar(30));
+
+
+Table created.
+
+
+SQL> desc hospital2;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ H_ID                                      NOT NULL NUMBER(10)
+ H_NAME                                             VARCHAR2(20)
+ ADDRESS                                            VARCHAR2(30)
+
+
+SQL> create table hospital3(h_id number(10) constraint pri_k1 primary key, h_name varchar(20), address varchar(30));
+
+
+Table created.
+
+
+SQL> desc hospital3;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ H_ID                                      NOT NULL NUMBER(10)
+ H_NAME                                             VARCHAR2(20)
+ ADDRESS                                            VARCHAR2(30)
+
+
+SQL> create table hospital4 as select *from hospital3;
+
+
+Table created.
+
+
+SQL> desc hospital4;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ H_ID                                               NUMBER(10)
+ H_NAME                                             VARCHAR2(20)
+ ADDRESS                                            VARCHAR2(30)
+
+
+SQL> create table hospital5 as select h_id, h_name from hospital3;
+
+
+Table created.
+
+
+SQL> desc hospital5;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ H_ID                                               NUMBER(10)
+ H_NAME                                             VARCHAR2(20)
+
+
+SQL> rename hospital5 to hospital6;
+
+
+Table renamed.
+
+
+SQL> desc hospital6;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ H_ID                                               NUMBER(10)
+ H_NAME                                             VARCHAR2(20)
+
+
+SQL> alter table hospital6 add(address varchar2(30));
+
+
+Table altered.
+
+
+SQL> desc hospital6;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ H_ID                                               NUMBER(10)
+ H_NAME                                             VARCHAR2(20)
+ ADDRESS                                            VARCHAR2(30)
+
+
+SQL> alter table hospital6 drop(address);
+
+
+Table altered.
+
+
+SQL> desc hospital6;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ H_ID                                               NUMBER(10)
+ H_NAME                                             VARCHAR2(20)
+
+
+SQL> alter table hospital6 modify(h_name varchar2(25));
+
+
+Table altered.
+
+
+SQL> desc hospital6;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ H_ID                                               NUMBER(10)
+ H_NAME                                             VARCHAR2(25)
+
+
+SQL> alter table hospital6 modify(h_id varchar2(15) constraint pri_k2 primary key);
+
+
+Table altered.
+
+
+SQL> desc hospital6;
+
+
+
+
+
+
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ H_ID                                      NOT NULL VARCHAR2(15)
+ H_NAME                                             VARCHAR2(25)
+
+
+SQL> truncate table hospital6;
+
+
+Table truncated.
+
+
+SQL> desc hospital6;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ H_ID                                      NOT NULL VARCHAR2(15)
+ H_NAME                                             VARCHAR2(25)
+
+
+SQL> drop table hospital6;
+
+
+Table dropped.
+
+
+SQL> desc hospital6;
+ERROR:
+ORA-04043: object hospital6 does not exist 
+
+
+
+
+SQL> spool off 
+
+
+
+
+----------------------------------------
+DBMS EXPERIMENT 03
+----------------------------------------
+
+
+Aim:
+To create a database using Data Definition Language (DDL) commands and apply integrity constraints for the specified system.
+
+
+----------------------------------------
+
+
+Theory:
+
+
+SQL (Structured Query Language) is a standard language used to manage relational databases. It is based on relational algebra and tuple relational calculus and is supported by most RDBMS like Oracle, MySQL, etc.
+
+
+SQL is divided into two main categories:
+1. Data Definition Language (DDL)
+2. Data Manipulation Language (DML)
+
+
+DDL commands are used to define and modify the database structure (schema), while DML commands are used to manipulate the data stored in the database.
+
+
+The main operations performed using SQL include:
+
+
+1. Maintenance of tables:
+   Includes creating, modifying, and deleting tables using commands like CREATE, ALTER, and DROP.
+
+
+2. Data manipulation:
+   Includes inserting, updating, deleting, and retrieving data using commands like INSERT, UPDATE, DELETE, and SELECT.
+
+
+3. Access control:
+   Includes managing permissions and transactions like COMMIT.
+
+
+DDL commands allow defining table structure with column names, data types, and constraints such as PRIMARY KEY and NOT NULL. These constraints ensure data integrity and accuracy.
+
+
+----------------------------------------
+
+
+Syntax:
+
+
+1. CREATE TABLE:
+   Used to create a new table.
+
+
+   Syntax:
+   CREATE TABLE table_name (
+       column1 datatype [constraint],
+       column2 datatype [constraint],
+       ...
+   );
+
+
+----------------------------------------
+
+
+2. ALTER TABLE:
+   Used to modify an existing table.
+
+
+   Syntax:
+   ALTER TABLE table_name ADD column_name datatype;
+
+
+   ALTER TABLE table_name MODIFY column_name datatype;
+
+
+   ALTER TABLE table_name DROP column_name;
+
+
+----------------------------------------
+
+
+3. DROP TABLE:
+   Used to delete a table permanently.
+
+
+   Syntax:
+   DROP TABLE table_name;
+
+
+----------------------------------------
+
+
+4. DESC (Describe Table):
+   Used to view table structure.
+
+
+   Syntax:
+   DESC table_name;
+
+
+----------------------------------------
+
+
+Conclusion:
+
+
+Thus, the database was successfully created and modified using DDL commands such as CREATE, ALTER, and DROP. The structure of tables was defined and updated as required. Integrity constraints were applied to maintain accuracy and consistency of data. SQL commands were executed successfully to manage the database efficiently.
+
+
+----------------------------------------

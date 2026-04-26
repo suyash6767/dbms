@@ -1,0 +1,359 @@
+﻿DBMS
+EXPERIMENT NO 04
+
+
+Creating a database using DML Commands
+
+
+
+
+SQL> create table MI(jno number(5), pname varchar2(10));
+
+
+Table created.
+
+
+SQL> insert into MI values(45, 'rohit');
+
+
+1 row created.
+
+
+SQL> insert into MI values('&jno', '&pname');
+Enter value for jno: 93
+Enter value for pname: bumrah
+old   1: insert into MI values('&jno', '&pname')
+new   1: insert into MI values('93', 'bumrah')
+
+
+1 row created.
+
+
+SQL> insert into MI values('&jno', '&pname');
+Enter value for jno: 63
+Enter value for pname: surya
+old   1: insert into MI values('&jno', '&pname')
+new   1: insert into MI values('63', 'surya')
+
+
+1 row created.
+
+
+SQL> desc MI
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ JNO                                                NUMBER(5)
+ PNAME                                              VARCHAR2(10)
+
+
+SQL> select *from MI;
+
+
+       JNO PNAME
+---------- ----------
+        45 rohit
+        93 bumrah
+        63 surya
+
+
+SQL> select *from MI where jno<60;
+
+
+       JNO PNAME
+---------- ----------
+        45 rohit
+
+
+SQL> select *from MI where jno between 60 and 95;
+
+
+       JNO PNAME
+---------- ----------
+        93 bumrah
+        63 surya
+
+
+SQL> select *from MI where pname like 'r%';
+
+
+       JNO PNAME
+---------- ----------
+        45 rohit
+
+
+SQL> select *from MI where pname like '%h';
+
+
+       JNO PNAME
+---------- ----------
+        93 bumrah
+
+
+SQL> insert into MI values('&jno', '&pname');
+Enter value for jno: 10
+Enter value for pname: hardik
+old   1: insert into MI values('&jno', '&pname')
+new   1: insert into MI values('10', 'hardik')
+
+
+1 row created.
+
+
+SQL> insert into MI values('&jno', '&pname');
+Enter value for jno: 20
+Enter value for pname: tilak
+old   1: insert into MI values('&jno', '&pname')
+new   1: insert into MI values('20', 'tilak')
+
+
+1 row created.
+
+
+SQL> select *from MI;
+
+
+       JNO PNAME
+---------- ----------
+        45 rohit
+        93 bumrah
+        63 surya
+        10 hardik
+        20 tilak
+
+
+SQL>    update MI set jno=33 where pname='hardik';
+
+
+1 row updated.
+
+
+SQL>    update MI set jno=72 where pname='tilak';
+
+
+1 row updated.
+
+
+SQL> select *from MI;
+
+
+       JNO PNAME
+---------- ----------
+        45 rohit
+        93 bumrah
+        63 surya
+        33 hardik
+        72 tilak
+
+
+SQL> delete from MI where jno=33;
+
+
+1 row deleted.
+
+
+SQL> select *from MI;
+
+
+       JNO PNAME
+---------- ----------
+        45 rohit
+        93 bumrah
+        63 surya
+        72 tilak
+
+
+SQL> select *from MI where jno in(40,65);
+
+
+no rows selected
+
+
+SQL> select *from MI where jno>=65;
+
+
+       JNO PNAME
+---------- ----------
+        93 bumrah
+        72 tilak
+
+
+SQL> select *from MI where jno<=50;
+
+
+       JNO PNAME
+---------- ----------
+        45 rohit
+
+
+SQL> delete from MI where jno=72;
+
+
+1 row deleted.
+
+
+SQL> select *from MI;
+
+
+       JNO PNAME
+---------- ----------
+        45 rohit
+        93 bumrah
+        63 surya
+
+
+
+
+Aim: Implementation of DML (Data Manipulation Language) commands DML commands of SQL with suitable examples.
+
+
+Resources  Required: H/W:  P4 machine
+                           S/W:  Oracle 10g
+
+
+Objective:
+To understand and use data manipulation language to query, update, and manage a database.
+ 
+Theory:
+DATA MANIPULATION LANGUAGE (DML):  The Data Manipulation Language (DML)  is used to retrieve, store, modify, delete, insert and update data in database. SQL is structured Query Language which is a computer language for storing, manipulating and retrieving data stored in relational database.
+
+
+SQL Commands:
+
+
+SELECT - retrieve data from the a database
+INSERT - insert data into a table.
+UPDATE - updates existing data within a table.
+DELETE - deletes all records from a table, the space for the records remain
+
+
+SELECT Statement: The SELECT statement is used to select data from a database.
+The result is stored in a result table, called the result-set.
+
+
+
+
+
+
+SELECT FROM:  To display all fields for all records. 
+
+
+Syntax :
+ SELECT * FROM relation_name; 
+
+
+Example : SQL> select * from dept; 
+
+
+SELECT FROM: To display a set of fields for all records of relation. 
+
+
+
+
+Syntax: SELECT column_name(s) FROM table_name; 
+
+
+Example: SQL> select deptno, dname from dept;
+SELECT - FROM -WHERE: This query is used to display a selected set of fields for a selected set of records of a relation.
+
+
+Syntax:
+
+
+SELECT a set of fields FROM relation_name WHERE condition; 
+
+
+Example: SQL> select * FROM dept WHERE deptno<=20;
+
+
+
+
+2. INSERT INTO Statement: This is used to add records into a relation. The INSERT INTO statement is used to insert a new row in a table. This is used to add one or more rows to a table. The values are separated by commas and the data types char and date are enclosed in apostrophes. The values must be entered in the same order as they are defined.
+
+
+Syntax:
+
+
+INSERT INTO table_name VALUES  (value1,value2,value3,...)
+
+
+
+
+OR
+
+
+
+
+INSERT INTO table_name(column1,column2,column3,...)VALUES (value1,value2,value3,...);
+
+
+ Inserting multiple records 
+Syntax: 
+INSERT INTO relation_name field_1,field_2, ....field_n) VALUES (&data_1,&data_2,.......&data_n); 
+
+
+Example: 
+
+
+SQL>INSERT INTO student (sno, sname, class,address) VALUES (&sno,’&sname’,’&class’,’&address’);
+
+
+3.DELETE Statement: The DELETE statement is used to delete rows in a table.
+
+
+DELETE-FROM: This is used to delete all the records of a relation but it will retain the structure of that relation. The delete command consists of a from clause followed by an optional where clause.
+
+
+ 
+DELETE-FROM: This is used to delete all the records of relation. 
+
+
+Syntax: SQL>DELETE FROM relation_name; 
+
+
+Example: SQL>DELETE FROM std; 
+
+
+DELETE -FROM-WHERE: This is used to delete a selected record from a relation. 
+
+
+Syntax: SQL>DELETE FROM relation_name WHERE condition;  
+or
+
+
+DELETE FROM table_name WHERE some_column=some_value;
+
+
+Example: SQL>DELETE FROM student WHERE sno = 2;
+
+
+4. UPDATE Statement: The UPDATE statement is used to update existing records in a table.. A single column may be updated or more than one column could be updated.
+
+
+
+
+Syntax:
+UPDATE table_name
+SETcolumn1=value,column2=value2,...
+WHERE some_column=some_value;
+
+
+Example: SQL>UPDATE student SET sname = ‘kumar’ WHERE sno=1;
+
+
+Procedure: 
+1. Open SQL prompt. 
+2. To the tables already created retrieve records with SELECT clause by combining 
+logical operators.
+3. Perform operations on table in SQL using Data definition language commands such as SELECT, INSERT, UPDATE and DELETE. 
+LAB PRACTICE ASSIGNMENT:
+
+
+ Create a table EMPLOYEE with following schema: (Emp_no, E_name, E_address, Dept_no, Dept_name, ,Job , Salary)
+
+
+
+
+Conclusion:
+
+
+Data definition language commands such as SELECT, INSERT, UPDATE and DELETE are studied and  performed operations on table in SQL.

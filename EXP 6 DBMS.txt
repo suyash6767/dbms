@@ -1,0 +1,345 @@
+﻿DBMS
+EXPERIMENT NO 06
+
+
+
+
+Implementation of nested queries , string operations, group by clause in database.
+
+
+SQL> connect
+Enter user-name: system
+Enter password:
+Connected.
+SQL> create table dssem1(eid number(10), ename varchar2(10), sal number(10), dno number(10), post varchar2(10));
+
+
+Table created.
+SQL> select *from dssem1;
+
+
+no rows selected
+
+
+SQL> insert into dssem1 values('&eid', '&ename', '&sal', '&dno', '&post');
+Enter value for eid: 10
+Enter value for ename: rohit
+Enter value for sal: 200000
+Enter value for dno: 15
+Enter value for post: ceo
+old   1: insert into dssem1 values('&eid', '&ename', '&sal', '&dno', '&post')
+new   1: insert into dssem1 values('10', 'rohit', '200000', '15', 'ceo')
+
+
+1 row created.
+
+
+SQL> insert into dssem1 values('&eid', '&ename', '&sal', '&dno', '&post');
+Enter value for eid: 25
+Enter value for ename: bumrah
+Enter value for sal: 100000
+Enter value for dno: 20
+Enter value for post: coo
+old   1: insert into dssem1 values('&eid', '&ename', '&sal', '&dno', '&post')
+new   1: insert into dssem1 values('25', 'bumrah', '100000', '20', 'coo')
+
+
+1 row created.
+
+
+SQL> insert into dssem1 values('&eid', '&ename', '&sal', '&dno', '&post');
+Enter value for eid: 20
+Enter value for ename: surya
+Enter value for sal: 150000
+Enter value for dno: 17
+Enter value for post: cap
+old   1: insert into dssem1 values('&eid', '&ename', '&sal', '&dno', '&post')
+new   1: insert into dssem1 values('20', 'surya', '150000', '17', 'cap')
+
+
+1 row created.
+
+
+SQL> insert into dssem1 values('&eid', '&ename', '&sal', '&dno', '&post');
+Enter value for eid: 11
+Enter value for ename: hardik
+Enter value for sal: 120000
+Enter value for dno: 17
+Enter value for post: cap
+old   1: insert into dssem1 values('&eid', '&ename', '&sal', '&dno', '&post')
+new   1: insert into dssem1 values('11', 'hardik', '120000', '17', 'cap')
+
+
+1 row created.
+
+
+SQL> select *from dssem1;
+
+
+       EID ENAME             SAL        DNO POST
+---------- ---------- ---------- ---------- ----------
+        10 rohit          200000         15 ceo
+        25 bumrah         100000         20 coo
+        20 surya          150000         17 cap
+        11 hardik         120000         17 cap
+
+
+SQL> select *from dssem1 where dno=(select dno from dssem1 where ename='hardik');
+
+
+       EID ENAME             SAL        DNO POST
+---------- ---------- ---------- ---------- ----------
+        20 surya          150000         17 cap
+        11 hardik         120000         17 cap
+
+
+SQL> select *from dssem1 where sal>(select sal from dssem1 where ename='surya');
+
+
+       EID ENAME             SAL        DNO POST
+---------- ---------- ---------- ---------- ----------
+        10 rohit          200000         15 ceo
+
+
+SQL>  select dno, sum(sal) from dssem1 group by dno having dno=17;
+
+
+       DNO   SUM(SAL)
+---------- ----------
+        17     270000
+
+
+SQL> select dno, sum(sal) from dssem1 group by dno having dno in(15,20);
+
+
+       DNO   SUM(SAL)
+---------- ----------
+        20     100000
+        15     200000
+
+
+SQL> select post, max(sal) from dssem1 group by post;
+
+
+POST         MAX(SAL)
+---------- ----------
+coo            100000
+ceo            200000
+cap            150000
+
+
+SQL> select lower(ename) from dssem1;
+
+
+LOWER(ENAM
+----------
+rohit
+bumrah
+surya
+hardik
+
+
+SQL> select upper(ename) from dssem1;
+
+
+UPPER(ENAM
+----------
+ROHIT
+BUMRAH
+SURYA
+HARDIK
+
+
+SQL> select upper('captain') from dual;
+
+
+UPPER('
+-------
+CAPTAIN
+
+
+SQL> select lower('captain') from dual;
+
+
+LOWER('
+-------
+captain
+
+
+SQL> select initcap('captain') from dual;
+
+
+INITCAP
+-------
+Captain
+
+
+SQL> select initcap(ename) from dssem1;
+
+
+INITCAP(EN
+----------
+Rohit
+Bumrah
+Surya
+Hardik
+
+
+SQL> select lpad('kavita', 14, '&') from dual;
+
+
+LPAD('KAVITA',
+--------------
+&&&&&&&&kavita
+
+
+SQL> select rpad('kavita', 14, '&') from dual;
+
+
+RPAD('KAVITA',
+--------------
+kavita&&&&&&&&
+
+
+SQL> select ltrim('kavita', 'k') from dual;
+
+
+LTRIM
+-----
+avita
+
+
+SQL> select rtrim('kavita', 'a') from dual;
+
+
+RTRIM
+-----
+kavit
+
+
+SQL> select translate('rsaggarwal', 'r', 'd') from dual;
+
+
+TRANSLATE(
+----------
+dsaggadwal
+
+
+SQL>  select replace('jack and jue', 'j', 'bl') from dual;
+
+
+REPLACE('JACKA
+--------------
+black and blue
+
+
+SQL> select length('jack and jill') from dual;
+
+
+LENGTH('JACKANDJILL')
+---------------------
+                   13
+
+
+SQL> select length(ename) from dssem1;
+
+
+LENGTH(ENAME)
+-------------
+            5
+            6
+            5
+            6
+
+
+SQL> select substr('jackandjill', 5,4) from dual;
+
+
+SUBS
+----
+andj
+
+
+
+
+🔹 AIM
+Implementation of Nested Queries, String Operations, and GROUP BY Clause in a database using SQL.
+
+
+🔹 RESOURCES REQUIRED
+H/W: P4 Machine
+S/W: Oracle 10g
+
+
+🔹 THEORY (WITH SYNTAX)
+✅ 1. NESTED QUERIES (SUBQUERIES)
+A nested query (subquery) is a query written inside another SQL query. It is used to perform operations that depend on the result of another query.
+Syntax:
+SELECT column_name
+FROM table_name
+WHERE column_name OPERATOR
+   (SELECT column_name FROM table_name WHERE condition);
+Example:
+SELECT * FROM dssem1
+WHERE dno = (SELECT dno FROM dssem1 WHERE ename='hardik');
+SELECT * FROM dssem1
+WHERE sal > (SELECT sal FROM dssem1 WHERE ename='surya');
+
+
+✅ 2. GROUP BY CLAUSE
+The GROUP BY clause is used to group rows that have the same values in specified columns. It is often used with aggregate functions like SUM, MAX, MIN, etc.
+Syntax:
+SELECT column_name, aggregate_function(column_name)
+FROM table_name
+GROUP BY column_name;
+With HAVING Clause:
+SELECT column_name, aggregate_function(column_name)
+FROM table_name
+GROUP BY column_name
+HAVING condition;
+Examples:
+SELECT dno, SUM(sal) FROM dssem1 GROUP BY dno HAVING dno=17;
+SELECT dno, SUM(sal) FROM dssem1 GROUP BY dno HAVING dno IN (15,20);
+SELECT post, MAX(sal) FROM dssem1 GROUP BY post;
+
+
+✅ 3. STRING FUNCTIONS
+String functions are used to manipulate character data in SQL.
+
+
+🔸 Case Conversion Functions
+UPPER() – Converts to uppercase
+SELECT UPPER(column_name) FROM table_name;
+LOWER() – Converts to lowercase
+SELECT LOWER(column_name) FROM table_name;
+INITCAP() – Capitalizes first letter
+SELECT INITCAP(column_name) FROM table_name;
+
+
+🔸 Padding Functions
+LPAD() – Adds characters to the left
+SELECT LPAD('string', total_length, 'char') FROM dual;
+RPAD() – Adds characters to the right
+SELECT RPAD('string', total_length, 'char') FROM dual;
+
+
+🔸 Trimming Functions
+LTRIM() – Removes characters from left
+SELECT LTRIM('string', 'char') FROM dual;
+RTRIM() – Removes characters from right
+SELECT RTRIM('string', 'char') FROM dual;
+
+
+🔸 Other String Functions
+TRANSLATE() – Replaces characters
+SELECT TRANSLATE('string', 'from', 'to') FROM dual;
+REPLACE() – Replaces substring
+SELECT REPLACE('string', 'old', 'new') FROM dual;
+LENGTH() – Returns length of string
+SELECT LENGTH(column_name) FROM table_name;
+SUBSTR() – Extracts substring
+SELECT SUBSTR('string', start_position, length) FROM dual;
+
+
+🔹 CONCLUSION
+Thus, we have successfully implemented nested queries, GROUP BY clause, and various string operations in SQL. The experiment helped in understanding how to retrieve data using subqueries, perform grouping and aggregation of data, and manipulate string values effectively in a database.

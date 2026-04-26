@@ -1,0 +1,322 @@
+﻿Experiment No. 05
+
+
+        Implementation of Aggregate function and Set Operations in DBMS.
+
+
+
+
+SQL> connect
+Enter user-name: system
+Enter password:
+Connected.
+SQL> create table dsem1(eid number (20), ename varchar2 (30), sal number (30), dno number (20));
+
+
+Table created.
+
+
+SQL> insert into dsem1 values ('&eid', '&ename', '&sal', '&dno');
+Enter value for eid: 2
+Enter value for ename: Varun
+Enter value for sal: 50000
+Enter value for dno: 6
+old   1: insert into dsem1 values ('&eid', '&ename', '&sal', '&dno')
+new   1: insert into dsem1 values ('2', 'Varun', '50000', '6')
+
+
+1 row created.
+
+
+SQL> insert into dsem1 values ('&eid', '&ename', '&sal', '&dno');
+Enter value for eid: 9
+Enter value for ename: Anupam
+Enter value for sal: 55000
+Enter value for dno: 7
+old   1: insert into dsem1 values ('&eid', '&ename', '&sal', '&dno')
+new   1: insert into dsem1 values ('9', 'Anupam', '55000', '7')
+
+
+1 row created.
+
+
+SQL> insert into dsem1 values ('&eid', '&ename', '&sal', '&dno');
+Enter value for eid: 13
+Enter value for ename: Akanksha
+Enter value for sal: 50000
+Enter value for dno: 18
+old   1: insert into dsem1 values ('&eid', '&ename', '&sal', '&dno')
+new   1: insert into dsem1 values ('13', 'Akanksha', '50000', '18')
+
+
+1 row created.
+
+
+SQL> insert into dsem1 values ('&eid', '&ename', '&sal', '&dno');
+Enter value for eid: 17
+Enter value for ename: Om
+Enter value for sal: 70000
+Enter value for dno: 45
+old   1: insert into dsem1 values ('&eid', '&ename', '&sal', '&dno')
+new   1: insert into dsem1 values ('17', 'Om', '70000', '45')
+
+
+1 row created.
+
+
+
+
+SQL> select *from dsem1;
+
+
+       EID ENAME                                 SAL        DNO
+---------- ------------------------------ ---------- ----------
+         2 Varun                               50000          6
+         9 Anupam                              55000          7
+        13 Akanksha                            50000         18
+        17 Om                                  70000         45
+
+
+SQL> create table csem1(eid number (20), ename varchar2 (30), sal number (30), dno number (20));
+
+
+Table created.
+
+
+SQL> insert into csem1 values ('&eid', '&ename', '&sal', '&dno');
+Enter value for eid: 1
+Enter value for ename: Rohit S
+Enter value for sal: 200000
+Enter value for dno: 45
+old   1: insert into csem1 values ('&eid', '&ename', '&sal', '&dno')
+new   1: insert into csem1 values ('1', 'Rohit S', '200000', '45')
+
+
+1 row created.
+
+
+SQL> insert into csem1 values ('&eid', '&ename', '&sal', '&dno');
+Enter value for eid: 6
+Enter value for ename: Virat K
+Enter value for sal: 15000
+Enter value for dno: 18
+old   1: insert into csem1 values ('&eid', '&ename', '&sal', '&dno')
+new   1: insert into csem1 values ('6', 'Virat K', '15000', '18')
+
+
+1 row created.
+
+
+SQL> insert into csem1 values ('&eid', '&ename', '&sal', '&dno');
+Enter value for eid: 8
+Enter value for ename: Thala
+Enter value for sal: 200000
+Enter value for dno: 7
+old   1: insert into csem1 values ('&eid', '&ename', '&sal', '&dno')
+new   1: insert into csem1 values ('8', 'Thala', '200000', '7')
+
+
+1 row created.
+
+
+SQL> select sum(sal) from csem1;
+
+
+  SUM(SAL)
+----------
+    415000
+
+
+SQL> select avg(sal) from dsem1;
+
+
+  AVG(SAL)
+----------
+     56250
+
+
+SQL> select count(ename) from dsem1;
+
+
+COUNT(ENAME)
+------------
+           4
+
+
+SQL> select *from dsem1;
+
+
+       EID ENAME                                 SAL        DNO
+---------- ------------------------------ ---------- ----------
+         2 Varun                               50000          6
+         9 Anupam                              55000          7
+        13 Akanksha                            50000         18
+        17 Om                                  70000         45
+
+
+SQL> select *from csem1;
+
+
+       EID ENAME                                 SAL        DNO
+---------- ------------------------------ ---------- ----------
+         1 Rohit S                            200000         45
+         6 Virat K                             15000         18
+         8 Thala                              200000          7
+
+
+SQL> select dno from dsem1 union select dno from csem1;
+
+
+       DNO
+----------
+         6
+         7
+        18
+        45
+
+
+SQL> select dno from csem1 union select dno from dsem1;
+
+
+       DNO
+----------
+         6
+         7
+        18
+        45
+
+
+SQL> insert into csem1 values ('&eid', '&ename', '&sal', '&dno');
+Enter value for eid: 15
+Enter value for ename: Tilak
+Enter value for sal: 15000
+Enter value for dno: 33
+old   1: insert into csem1 values ('&eid', '&ename', '&sal', '&dno')
+new   1: insert into csem1 values ('15', 'Tilak', '15000', '33')
+
+
+1 row created.
+
+
+SQL> select dno from csem1 union select dno from dsem1;
+
+
+       DNO
+----------
+         6
+         7
+        18
+        33
+        45
+
+
+SQL> select dno from csem1 union all select dno from dsem1;
+
+
+       DNO
+----------
+        45
+        18
+         7
+        33
+         6
+         7
+        18
+        45
+
+
+8 rows selected.
+
+
+SQL> select dno from csem1 intersect select dno from dsem1;
+
+
+       DNO
+----------
+         7
+        18
+        45
+
+
+SQL> select dno from csem1 minus select dno from dsem1;
+
+
+       DNO
+----------
+        33
+
+
+SQL> spool off
+
+
+
+
+Aim:  Implementation of different types of aggregate functions and Set operators with suitable examples. 
+Resources  Required:
+                                H/W:  P4 machine
+                          S/W:  Oracle 10g
+Theory:
+AGGREGATE  FUNCTIONS:
+In addition to simply retrieving data, we often want to perform some computation or summarization. SQL allows the use of arithmetic expressions. In database management an aggregate function is a function where the values of multiple rows are grouped together as input on certain criteria to form a single value of more significant meaning.
+
+
+A group function returns a result based on group of rows.
+avg– AVG followed by a column name returns the average value of that column values.
+syntax:  select avg(column_name) as avg from table_name;
+
+
+max– MAX followed by a column name returns the maximum value of that column.
+syntax:  select max(column_name) as max from table_name;
+Example: SELECT MAX (Sal) FROM emp; 
+
+
+min– MIN followed by column name returns the minimum value of that column.
+syntax:  select min(column_name) as min from table_name;
+Example: SELECT MIN (Sal) FROM emp;
+
+
+sum– SUM followed by a column name returns the sum of all the values in that column.
+ syntax:  select sum(column_name) as sum from table_name;
+
+
+Example: SELECT SUM (Sal) From emp;
+
+
+Count -- COUNT following by a column name returns the count of tuple in that column. If DISTINCT keyword is used then it will return only the count of unique tuple in the column. Otherwise, it will return count of all the tuples (including duplicates) count (*) indicates all the tuples of the column. It counts all, inclusive of duplicates and nulls.
+
+
+syntax:  select count (column_name) as count from table_name;
+Example: SELECT COUNT (Sal) FROM emp;
+
+
+SET OPERATORS:  
+
+
+The Set operator combines the result of 2 queries into a single result. 
+The following are the operators:
+ Union 
+Union all 
+Intersect 
+Minus 
+
+
+Union: Returns all distinct rows selected by both the queries 
+
+
+Union all: Returns all rows selected by either query including the duplicates.
+
+
+ Intersect: Returns rows selected that are common to both queries.
+
+
+ Minus: Returns all distinct rows selected by the first query and are not by the second 
+
+
+EXERCISE 
+
+
+Create a table and perfom Set operations and aggregate functions  on the table
+
+
+Conclusion:
+ Aggregate functions such as COUNT, MIN, MAX, AVG and Set Operators are studied and  performed operations on table in SQL.

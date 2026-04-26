@@ -1,0 +1,313 @@
+﻿EXPERIMENT NO 07
+
+
+IMPLEMENTING VARIOUS JOIN OPERATIONS
+
+
+SQL> create table studentinfo(s_id number(5) not null, s_name varchar(6), dept varchar(4), address varchar(5));
+
+
+Table created.
+
+
+SQL> create table accountinfo(s_id number(5) not null, a_name varchar(6), accountno number(4), fees number(5));
+
+
+Table created.
+
+
+SQL> insert into studentinfo values('&s_id', '&s_name', '&dept', '&address');
+Enter value for s_id: 1
+Enter value for s_name: aarav
+Enter value for dept: ds
+Enter value for address: thane
+old   1: insert into studentinfo values('&s_id', '&s_name', '&dept', '&address')
+new   1: insert into studentinfo values('1', 'aarav', 'ds', 'thane')
+
+
+1 row created.
+
+
+SQL> insert into studentinfo values('&s_id', '&s_name', '&dept', '&address');
+Enter value for s_id: 2
+Enter value for s_name: om
+Enter value for dept: aiml
+Enter value for address: worli
+old   1: insert into studentinfo values('&s_id', '&s_name', '&dept', '&address')
+new   1: insert into studentinfo values('2', 'om', 'aiml', 'worli')
+
+
+1 row created.
+
+
+SQL> insert into studentinfo values('&s_id', '&s_name', '&dept', '&address');
+Enter value for s_id: 3
+Enter value for s_name: varun
+Enter value for dept: it
+Enter value for address: goa
+old   1: insert into studentinfo values('&s_id', '&s_name', '&dept', '&address')
+new   1: insert into studentinfo values('3', 'varun', 'it', 'goa')
+
+
+1 row created.
+
+
+
+
+SQL> insert into studentinfo values('&s_id', '&s_name', '&dept', '&address');
+Enter value for s_id: 4
+Enter value for s_name: sejal
+Enter value for dept: cs
+Enter value for address: bihar
+old   1: insert into studentinfo values('&s_id', '&s_name', '&dept', '&address')
+new   1: insert into studentinfo values('4', 'sejal', 'cs', 'bihar')
+
+
+1 row created.
+
+
+SQL> insert into accountinfo values('&s_id', '&a_name', '&accountno', '&fees');
+Enter value for s_id: 1
+Enter value for a_name: aarav
+Enter value for accountno: 1234
+Enter value for fees: 12345
+old   1: insert into accountinfo values('&s_id', '&a_name', '&accountno', '&fees')
+new   1: insert into accountinfo values('1', 'aarav', '1234', '12345')
+
+
+1 row created.
+
+
+SQL> insert into accountinfo values('&s_id', '&a_name', '&accountno', '&fees');
+Enter value for s_id: 23
+Enter value for a_name: tejal
+Enter value for accountno: 2345
+Enter value for fees: 23456
+old   1: insert into accountinfo values('&s_id', '&a_name', '&accountno', '&fees')
+new   1: insert into accountinfo values('23', 'tejal', '2345', '23456')
+
+
+1 row created.
+
+
+SQL> insert into accountinfo values('&s_id', '&a_name', '&accountno', '&fees');
+Enter value for s_id: 12
+Enter value for a_name: yash
+Enter value for accountno: 3456
+Enter value for fees: 34567
+old   1: insert into accountinfo values('&s_id', '&a_name', '&accountno', '&fees')
+new   1: insert into accountinfo values('12', 'yash', '3456', '34567')
+
+
+1 row created.
+
+
+SQL> insert into accountinfo values('&s_id', '&a_name', '&accountno', '&fees');
+Enter value for s_id: 13
+Enter value for a_name: nidhi
+Enter value for accountno: 4567
+Enter value for fees: 45678
+old   1: insert into accountinfo values('&s_id', '&a_name', '&accountno', '&fees')
+new   1: insert into accountinfo values('13', 'nidhi', '4567', '45678')
+
+
+1 row created.
+
+
+SQL> select *from studentinfo;
+
+
+      S_ID S_NAME DEPT ADDRE                                                    
+---------- ------ ---- -----                                                    
+         1 aarav  ds   thane                                                    
+         2 om     aiml worli                                                    
+         3 varun  it   goa                                                      
+         4 sejal  cs   bihar                                                    
+
+
+SQL> select *from accountinfo;
+
+
+      S_ID A_NAME  ACCOUNTNO       FEES                                         
+---------- ------ ---------- ----------                                         
+         1 aarav        1234      12345                                         
+        23 tejal        2345      23456                                         
+        12 yash         3456      34567                                         
+        13 nidhi        4567      45678                                         
+
+
+SQL> select *from studentinfo, accountinfo;
+
+
+      S_ID S_NAME DEPT ADDRE       S_ID A_NAME  ACCOUNTNO       FEES            
+---------- ------ ---- ----- ---------- ------ ---------- ----------            
+         1 aarav  ds   thane          1 aarav        1234      12345            
+         1 aarav  ds   thane         23 tejal        2345      23456            
+         1 aarav  ds   thane         12 yash         3456      34567            
+         1 aarav  ds   thane         13 nidhi        4567      45678            
+         2 om     aiml worli          1 aarav        1234      12345            
+         2 om     aiml worli         23 tejal        2345      23456            
+         2 om     aiml worli         12 yash         3456      34567            
+         2 om     aiml worli         13 nidhi        4567      45678            
+         3 varun  it   goa            1 aarav        1234      12345            
+         3 varun  it   goa           23 tejal        2345      23456            
+         3 varun  it   goa           12 yash         3456      34567            
+
+
+      S_ID S_NAME DEPT ADDRE       S_ID A_NAME  ACCOUNTNO       FEES            
+---------- ------ ---- ----- ---------- ------ ---------- ----------            
+         3 varun  it   goa           13 nidhi        4567      45678            
+         4 sejal  cs   bihar          1 aarav        1234      12345            
+         4 sejal  cs   bihar         23 tejal        2345      23456            
+         4 sejal  cs   bihar         12 yash         3456      34567            
+         4 sejal  cs   bihar         13 nidhi        4567      45678            
+
+
+16 rows selected.
+
+
+SQL> select studentinfo.s_id, s_name, dept, accountno, fees from studentinfo, accountinfo where studentinfo.s_id=accountinfo.s_id;
+
+
+      S_ID S_NAME DEPT  ACCOUNTNO       FEES                                    
+---------- ------ ---- ---------- ----------                                    
+         1 aarav  ds         1234      12345                                    
+
+
+SQL> select studentinfo.s_id, s_name, dept from studentinfo inner join accountinfo on studentinfo.s_id=accountinfo.s_id;
+
+
+      S_ID S_NAME DEPT                                                          
+---------- ------ ----                                                          
+         1 aarav  ds                                                            
+
+
+SQL> select studentinfo.s_id, s_name, dept from studentinfo left join accountinfo on studentinfo.s_id=accountinfo.s_id;
+
+
+      S_ID S_NAME DEPT                                                          
+---------- ------ ----                                                          
+         1 aarav  ds                                                            
+         4 sejal  cs                                                            
+         3 varun  it                                                            
+         2 om     aiml                                                          
+
+
+SQL> select studentinfo.s_id, s_name, dept from studentinfo right join accountinfo on studentinfo.s_id=accountinfo.s_id;
+
+
+      S_ID S_NAME DEPT                                                          
+---------- ------ ----                                                          
+         1 aarav  ds                                                            
+                                                                                
+                                                                                
+                                                                                
+
+
+SQL> select studentinfo.s_id, s_name, dept from studentinfo full join accountinfo on studentinfo.s_id=accountinfo.s_id;
+
+
+      S_ID S_NAME DEPT                                                          
+---------- ------ ----                                                          
+         1 aarav  ds                                                            
+                                                                                
+                                                                                
+                                                                                
+         4 sejal  cs                                                            
+         3 varun  it                                                            
+         2 om     aiml                                                          
+
+
+7 rows selected.
+
+
+
+
+SQL> select *from studentinfo right outer join accountinfo on studentinfo.s_id=accountinfo.s_id;
+
+
+      S_ID S_NAME DEPT ADDRE       S_ID A_NAME  ACCOUNTNO       FEES            
+---------- ------ ---- ----- ---------- ------ ---------- ----------            
+         1 aarav  ds   thane          1 aarav        1234      12345            
+                                     13 nidhi        4567      45678            
+                                     23 tejal        2345      23456            
+                                     12 yash         3456      34567            
+
+
+SQL> select *from studentinfo left outer join accountinfo on studentinfo.s_id=accountinfo.s_id;
+
+
+      S_ID S_NAME DEPT ADDRE       S_ID A_NAME  ACCOUNTNO       FEES            
+---------- ------ ---- ----- ---------- ------ ---------- ----------            
+         1 aarav  ds   thane          1 aarav        1234      12345            
+         4 sejal  cs   bihar                                                    
+         3 varun  it   goa                                                      
+         2 om     aiml worli                                                    
+
+
+SQL> select *from studentinfo inner join accountinfo on studentinfo.s_id=accountinfo.s_id;
+
+
+      S_ID S_NAME DEPT ADDRE       S_ID A_NAME  ACCOUNTNO       FEES            
+---------- ------ ---- ----- ---------- ------ ---------- ----------            
+         1 aarav  ds   thane          1 aarav        1234      12345            
+
+
+SQL> select *from studentinfo join accountinfo on studentinfo.s_id=accountinfo.s_id;
+
+
+      S_ID S_NAME DEPT ADDRE       S_ID A_NAME  ACCOUNTNO       FEES            
+---------- ------ ---- ----- ---------- ------ ---------- ----------           
+         1 aarav  ds   thane          1 aarav        1234      12345            
+
+
+
+
+🔹 AIM
+To implement various SQL JOIN operations.
+
+
+🔹 THEORY (WITH SYNTAX)
+SQL JOINs are used to retrieve data from two or more tables based on a relationship between columns in those tables. The JOIN keyword helps combine rows from multiple tables using common attributes, usually primary and foreign keys.
+A primary key uniquely identifies each record in a table, and relationships between tables are established using these keys. This avoids data redundancy and allows efficient data retrieval.
+Different types of SQL JOINs:
+
+
+1. INNER JOIN
+Returns only the rows that have matching values in both tables.
+Syntax:
+SELECT column_name(s)
+FROM table_name1
+INNER JOIN table_name2
+ON table_name1.column_name = table_name2.column_name;
+
+
+2. LEFT JOIN
+Returns all rows from the left table and matching rows from the right table. If no match exists, NULL values are returned.
+Syntax:
+SELECT column_name(s)
+FROM table_name1
+LEFT JOIN table_name2
+ON table_name1.column_name = table_name2.column_name;
+
+
+3. RIGHT JOIN
+Returns all rows from the right table and matching rows from the left table. If no match exists, NULL values are returned.
+Syntax:
+SELECT column_name(s)
+FROM table_name1
+RIGHT JOIN table_name2
+ON table_name1.column_name = table_name2.column_name;
+
+
+4. FULL JOIN (FULL OUTER JOIN)
+Returns rows when there is a match in either table. Includes all records from both tables.
+Syntax:
+SELECT column_name(s)
+FROM table_name1
+FULL JOIN table_name2
+ON table_name1.column_name = table_name2.column_name;
+
+
+🔹 CONCLUSION
+Thus, we have implemented different SQL JOIN operations and verified the output successfully. Both inner and outer join operations were performed, including INNER JOIN, LEFT JOIN, RIGHT JOIN, and FULL JOIN.

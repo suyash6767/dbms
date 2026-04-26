@@ -1,0 +1,200 @@
+﻿Experiment No: 09
+Implementation of Views and Triggers:
+CODE:
+SQL> create view stud_v1 as select sid, sname from student;
+View created.
+SQL> select * from stud_v1;
+SID SNAME
+
+
+20 Ananya
+30 Mayank
+40 Bharati
+SQL> create or replace view stud_v1 as select sid, sname, dept from student;
+View created.
+SQL> select * from stud_v1;
+SID SNAME DEPT
+
+
+20 Ananya 10000
+30 Mayank 40000
+40 Bharati 50000
+SQL> update stud_v1 set sname = 'Akanksha' where sid = 40;
+1 row updated.
+SQL> select * from stud_v1;
+SID SNAME DEPT
+
+
+20 Ananya 10000
+30 Mayank 40000
+40 Akanksha 50000
+SQL> select * from student;
+SID SNAME DEPT
+
+
+20 Ananya 10000
+30 Mayank 40000
+40 Akanksha 50000
+SQL> insert into stud_v1 values (35, 'Dhruv', 'FINANCE');
+1 row created.
+SQL> select * from stud_v1;
+SID SNAME DEPT
+
+
+35 Dhruv FINANCE
+20 Ananya 10000
+30 Mayank 40000
+40 Akanksha 50000
+SQL> select * from student;
+SID SNAME DEPT
+
+
+35 Dhruv FINANCE
+20 Ananya 10000
+30 Mayank 40000
+40 Akanksha 50000
+SQL> create table lib (sid number(10), subject varchar2(10), fine number(10));
+Table created.
+SQL> insert into lib values (35, 'python', 200);
+1 row created.
+SQL> insert into lib values (25, 'c++', 100);
+1 row created.
+SQL> insert into lib values (35, 'c++', 100);
+1 row created.
+SQL> insert into lib values (45, 'java', 100);
+1 row created.
+SQL> insert into lib values (25, 'dbms', 100);
+1 row created.
+SQL> select * from lib;
+SID SUBJECT FINE
+
+
+35 python 200
+25 c++ 100
+35 c++ 100
+45 java 100
+25 dbms 100
+SQL> create or replace view lib1 as select sid, fine from lib;
+View created.
+SQL> select * from lib1;
+SID FINE
+
+
+35 200
+25 100
+35 100
+45 100
+25 100
+SQL> create or replace view lib2 as select sid, sum(fine) as total_fine from lib group by sid;
+View created.
+SQL> select * from lib2;
+SID TOTAL_FINE
+
+
+25 200
+35 300
+45 100
+SQL> create or replace trigger lib_t1
+2 before update on lib
+3 for each row
+4 begin
+5 dbms_output.put_line('library record updated');
+6 end;
+7 /
+Trigger created.
+SQL> update lib set fine = fine * 2 where fine < 200;
+4 rows updated.
+SQL> select * from lib;
+SID SUBJECT FINE
+
+
+35 python 200
+25 c++ 200
+35 c++ 200
+45 java 200
+
+
+
+
+
+AIM
+Implementation of Views and Triggers in SQL.
+
+
+🔹 RESOURCES REQUIRED
+H/W: P4 Machine
+S/W: Oracle 10g
+
+
+🔹 THEORY (WITH SYNTAX)
+✅ VIEWS
+In SQL, a view is a virtual table based on the result of an SQL query. It does not store data physically but displays data from one or more tables. Views help simplify complex queries and enhance security by restricting access to specific data.
+A view contains rows and columns like a real table, and it can include SQL functions, WHERE conditions, and JOIN operations.
+
+
+🔸 1. CREATE VIEW
+Syntax:
+CREATE VIEW view_name AS
+SELECT column_name(s)
+FROM table_name
+WHERE condition;
+
+
+🔸 2. CREATE OR REPLACE VIEW
+Used to modify an existing view without dropping it.
+Syntax:
+CREATE OR REPLACE VIEW view_name AS
+SELECT column_name(s)
+FROM table_name
+WHERE condition;
+
+
+🔸 3. DROP VIEW
+Used to delete a view.
+Syntax:
+DROP VIEW view_name;
+
+
+🔹 DATABASE TRIGGERS
+Triggers are stored programs that automatically execute (fire) when specific events occur in the database. These events can be:
+* DML operations (INSERT, UPDATE, DELETE)
+* DDL operations (CREATE, ALTER, DROP)
+* Database events (LOGON, LOGOFF, etc.)
+Triggers can be defined on tables, views, schemas, or the entire database.
+
+
+🔸 CREATE TRIGGER
+Syntax:
+CREATE OR REPLACE TRIGGER trigger_name
+{BEFORE | AFTER | INSTEAD OF}
+{INSERT OR UPDATE OR DELETE}
+ON table_name
+[FOR EACH ROW]
+WHEN (condition)
+DECLARE
+-- variables
+BEGIN
+-- trigger logic
+END;
+
+
+🔸 Example (from file)
+A trigger is created on the CUSTOMERS table to display salary changes when INSERT, UPDATE, or DELETE operations occur.
+CREATE OR REPLACE TRIGGER display_salary_changes
+BEFORE INSERT OR UPDATE OR DELETE ON customers
+FOR EACH ROW
+WHEN (NEW.ID > 0)
+DECLARE
+  sal_diff NUMBER;
+BEGIN
+  sal_diff := :NEW.salary - :OLD.salary;
+  dbms_output.put_line('Old salary: ' || :OLD.salary);
+  dbms_output.put_line('New salary: ' || :NEW.salary);
+  dbms_output.put_line('Salary difference: ' || sal_diff);
+END;
+👉 As shown on page 3–4, this trigger fires automatically and displays salary differences when records are inserted or updated in the table.
+
+
+🔹 CONCLUSION
+Thus, we have successfully implemented SQL Views and Triggers. We learned how to create, update, and drop views, and how triggers automatically execute for INSERT, UPDATE, and DELETE operations. The outputs were verified successfully. 
+5 dbms 200

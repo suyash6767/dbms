@@ -1,0 +1,123 @@
+﻿AIM
+To identify the case study and problem statement of a Travel Agency system and design an Entity Relationship (ER) diagram / Extended ER (EER) model representing entities, attributes, and relationships.
+THEORY (DETAILED)
+The Entity Relationship (ER) Model is a high-level conceptual data model used for designing and representing the structure of a database. It helps in visualizing how data is organized and how different data elements are related to each other before implementing the database.
+An ER model describes a system using entities, attributes, and relationships.
+
+
+1. Entity
+An entity is a real-world object or concept that can be uniquely identified and stored in a database. It can represent a person, place, object, or event.
+Examples in Travel Agency system:
+* Travel Agency
+* Branch
+* Employee
+* Tour
+* Bus
+* Passenger
+* Seat
+Entities are represented by rectangles in an ER diagram.
+Types of Entities
+* Strong Entity: Has its own primary key (e.g., Employee, Tour)
+* Weak Entity: Depends on another entity for identification (e.g., Seat depending on Bus)
+
+
+2. Attributes
+Attributes are the properties or characteristics of an entity. They describe the details of an entity.
+Examples:
+* Employee → Name, Salary, Phone No
+* Tour → Tour_ID, Destination
+* Passenger → Name, Pickup Location
+Attributes are represented by ellipses (ovals).
+Types of Attributes
+1. Key Attribute
+   * Uniquely identifies an entity
+   * Example: Employee_ID, Tour_ID
+   * Represented by underlined ellipse
+2. Simple Attribute
+   * Cannot be divided further
+   * Example: Age, Salary
+3. Composite Attribute
+   * Can be divided into smaller parts
+   * Example: Name → First Name, Middle Name, Last Name
+4. Multivalued Attribute
+   * Can have multiple values
+   * Example: Phone Number
+   * Represented by double ellipse
+5. Derived Attribute
+   * Derived from other attributes
+   * Example: Age (derived from Date of Birth)
+   * Represented by dashed ellipse
+
+
+3. Relationship
+A relationship defines how two or more entities are connected to each other.
+Examples:
+* Travel Agency has Branch
+* Branch organizes Tours
+* Employee works in Branch
+* Passenger books Seat
+Relationships are represented by diamond shapes.
+
+
+4. Types of Relationships
+1. One-to-One (1:1)
+Each entity in one set is related to only one entity in another set.
+Example: One manager manages one branch.
+
+
+2. One-to-Many (1:M)
+One entity is related to multiple entities.
+Example:
+* One Travel Agency → Many Branches
+* One Bus → Many Seats
+
+
+3. Many-to-One (M:1)
+Many entities are related to one entity.
+Example: Many employees work in one branch.
+
+
+4. Many-to-Many (M:N)
+Many entities are related to many entities.
+Example:
+* Branch organizes many Tours
+* Tour can be organized by many Branches
+
+
+5. Components of ER Diagram
+Component
+	Symbol
+	Entity
+	Rectangle
+	Weak Entity
+	Double Rectangle
+	Attribute
+	Ellipse
+	Key Attribute
+	Underlined Ellipse
+	Multivalued Attribute
+	Double Ellipse
+	Derived Attribute
+	Dashed Ellipse
+	Relationship
+	Diamond
+	
+
+6. ER Diagram in Travel Agency System
+In the Travel Agency ER diagram:
+* Travel Agency is connected to Branch using Has relationship
+* Branch is connected to Tour using Organizes relationship
+* Tour is connected to Bus using Offers relationship
+* Bus is connected to Seat
+* Passenger is connected to Seat using Books relationship
+* Employee works under Branch
+This diagram clearly shows how different entities interact within the system.
+
+
+7. Importance of ER Model
+* Helps in database design before implementation
+* Reduces data redundancy
+* Improves data consistency and integrity
+* Makes system easy to understand and visualize
+CONCLUSION
+In this experiment, we studied the components of the ER model including entities, attributes, and relationships. We designed an ER diagram for a Travel Agency system showing how different entities are connected. This helps in understanding database structure and serves as a foundation for converting into a relational model.
