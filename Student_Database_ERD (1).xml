@@ -1,0 +1,62 @@
+<mxfile host="app.diagrams.net">
+  <diagram name="Student Database ERD">
+    <mxGraphModel dx="1422" dy="794" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageWidth="1169" pageHeight="827">
+      <root>
+        <mxCell id="0"/>
+        <mxCell id="1" parent="0"/>
+
+        <!-- STUDENT -->
+        <mxCell id="student" value="STUDENT&#xa;----------------&#xa;PK student_id&#xa;first_name&#xa;last_name&#xa;email&#xa;dob&#xa;enrollment_date&#xa;FK major_id&#xa;status" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;" vertex="1" parent="1">
+          <mxGeometry x="80" y="120" width="200" height="200" as="geometry"/>
+        </mxCell>
+
+        <!-- COURSE -->
+        <mxCell id="course" value="COURSE&#xa;----------------&#xa;PK course_id&#xa;course_code&#xa;course_name&#xa;credits&#xa;FK department_id" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;" vertex="1" parent="1">
+          <mxGeometry x="500" y="120" width="200" height="160" as="geometry"/>
+        </mxCell>
+
+        <!-- DEPARTMENT -->
+        <mxCell id="dept" value="DEPARTMENT&#xa;----------------&#xa;PK department_id&#xa;name&#xa;building&#xa;budget" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;" vertex="1" parent="1">
+          <mxGeometry x="800" y="120" width="200" height="140" as="geometry"/>
+        </mxCell>
+
+        <!-- MAJOR -->
+        <mxCell id="major" value="MAJOR&#xa;----------------&#xa;PK major_id&#xa;major_name&#xa;FK department_id" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;" vertex="1" parent="1">
+          <mxGeometry x="80" y="400" width="200" height="120" as="geometry"/>
+        </mxCell>
+
+        <!-- ENROLLMENT -->
+        <mxCell id="enroll" value="ENROLLMENT&#xa;----------------&#xa;PK student_id&#xa;PK course_id&#xa;grade&#xa;semester&#xa;year" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;" vertex="1" parent="1">
+          <mxGeometry x="300" y="400" width="200" height="150" as="geometry"/>
+        </mxCell>
+
+        <!-- RELATIONSHIPS -->
+
+        <!-- Student -> Major -->
+        <mxCell id="rel1" style="endArrow=block;" edge="1" parent="1" source="student" target="major">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+
+        <!-- Course -> Department -->
+        <mxCell id="rel2" style="endArrow=block;" edge="1" parent="1" source="course" target="dept">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+
+        <!-- Major -> Department -->
+        <mxCell id="rel3" style="endArrow=block;" edge="1" parent="1" source="major" target="dept">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+
+        <!-- Enrollment relationships -->
+        <mxCell id="rel4" style="endArrow=block;" edge="1" parent="1" source="enroll" target="student">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="rel5" style="endArrow=block;" edge="1" parent="1" source="enroll" target="course">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
